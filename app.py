@@ -2,8 +2,16 @@ from flask import Flask, request, send_file
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import io
+from dotenv import load_dotenv
+import os
+
+# Carregar variáveis do arquivo .env
+load_dotenv()
 
 app = Flask(__name__)
+
+# Configurar a chave secreta a partir do .env
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
