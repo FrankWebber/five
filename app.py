@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import io
@@ -13,6 +13,12 @@ app = Flask(__name__)
 # Configurar a chave secreta a partir do .env
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
+# Rota para servir o index.html
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Rota para gerar PDFs
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
     data = request.json
